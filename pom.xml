@@ -5,7 +5,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>demo</name>
@@ -47,35 +47,62 @@
 			</plugin>
 
 
+			<!--<plugin>-->
+				<!--<groupId>com.spotify</groupId>-->
+				<!--<artifactId>docker-maven-plugin</artifactId>-->
+				<!--<version>0.4.12</version>-->
+				<!--&lt;!&ndash;docker镜像相关的配置信息&ndash;&gt;-->
+				<!--<configuration>-->
+					<!--&lt;!&ndash;镜像名，这里用工程名&ndash;&gt;-->
+					<!--<imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>-->
+					<!--&lt;!&ndash;TAG,这里用工程版本号&ndash;&gt;-->
+					<!--<imageTags>-->
+						<!--<imageTag>${project.version}</imageTag>-->
+					<!--</imageTags>-->
+					<!--&lt;!&ndash;镜像的FROM，使用java官方镜像&ndash;&gt;-->
+					<!--<baseImage>java:8u111-jdk</baseImage>-->
+					<!--&lt;!&ndash;该镜像的容器启动后，直接运行spring boot工程&ndash;&gt;-->
+					<!--<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>-->
+					<!--&lt;!&ndash;构建镜像的配置信息&ndash;&gt;-->
+					<!--<resources>-->
+						<!--<resource>-->
+							<!--<targetPath>/</targetPath>-->
+							<!--<directory>${project.build.directory}</directory>-->
+							<!--<include>${project.build.finalName}.jar</include>-->
+						<!--</resource>-->
+					<!--</resources>-->
+					<!--<serverId>docker-aliyun</serverId>-->
+					<!--<registryUrl>${docker.repostory}</registryUrl>-->
+					<!--<pushImage>true</pushImage>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+
+
 			<plugin>
-			<groupId>com.spotify</groupId>
-			<artifactId>docker-maven-plugin</artifactId>
-			<version>0.4.12</version>
-			<!--docker镜像相关的配置信息-->
-			<configuration>
-				<!--镜像名，这里用工程名-->
-				<imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
-				<!--TAG,这里用工程版本号-->
-				<imageTags>
-					<imageTag>${project.version}</imageTag>
-				</imageTags>
-				<!--镜像的FROM，使用java官方镜像-->
-				<baseImage>java:8u111-jdk</baseImage>
-				<!--该镜像的容器启动后，直接运行spring boot工程-->
-				<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-				<!--构建镜像的配置信息-->
-				<resources>
-					<resource>
-						<targetPath>/</targetPath>
-						<directory>${project.build.directory}</directory>
-						<include>${project.build.finalName}.jar</include>
-					</resource>
-				</resources>
-				<serverId>docker-aliyun</serverId>
-				<registryUrl>${docker.repostory}</registryUrl>
-				<pushImage>true</pushImage>
-			</configuration>
-		</plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.12</version>
+				<configuration>
+					<imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+					<!--TAG,这里用工程版本号-->
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+					</imageTags>
+					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+					<skipDockerBuild>false</skipDockerBuild>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<serverId>docker-aliyun</serverId>
+					<registryUrl>${docker.repostory}</registryUrl>
+					<pushImage>true</pushImage>
+				</configuration>
+			</plugin>
+
 
 
 		</plugins>
