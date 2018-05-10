@@ -19,6 +19,6 @@ public class DemoApplication {
 	public String list(Model model) {
 		//model.addAttribute("page", jobService.find(request));
 		//model.addAttribute("job", request);
-		return "hello you!";
+		return "hello you";
 	}
 }
